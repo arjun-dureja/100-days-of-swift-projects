@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Score", style: .done, target: self, action: #selector(scoreTapped))
+        
         countries += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         
         button1.layer.borderWidth = 1
@@ -57,7 +59,7 @@ class ViewController: UIViewController {
     }
     
     func updateTitle() {
-        title = countries[correctAnswer].uppercased() + " Score: \(score)"
+        title = countries[correctAnswer].uppercased()
     }
 
     @IBAction func buttonTapped(_ sender: UIButton) {
@@ -80,7 +82,14 @@ class ViewController: UIViewController {
         ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
         
         present(ac, animated: true)
+    }
+    
+    @objc func scoreTapped() {
+        let ac = UIAlertController(title: "Score", message: "Your score is \(score)", preferredStyle: .alert)
         
+        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+        
+        present(ac, animated: true)
     }
     
 }
