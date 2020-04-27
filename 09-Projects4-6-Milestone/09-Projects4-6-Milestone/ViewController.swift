@@ -70,6 +70,15 @@ class ViewController: UITableViewController {
     }
     
     @objc func shareTapped() {
+        if shoppingList.isEmpty {
+            let ac = UIAlertController(title: "Your List is Empty!", message: "Add items to your list to share it.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default)
+            
+            ac.addAction(action)
+            present(ac, animated: true)
+            return
+        }
+        
         let vc = UIActivityViewController(activityItems: [shoppingList.joined(separator: "\n")], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItems?[0]
         present(vc, animated: true)
