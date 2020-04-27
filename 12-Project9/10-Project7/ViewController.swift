@@ -48,6 +48,7 @@ class ViewController: UITableViewController {
             guard let query = ac?.textFields?[0].text else { return }
             self?.submit(query)
         })
+        
         present(ac, animated: true)
     }
     

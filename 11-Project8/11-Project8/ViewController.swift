@@ -171,6 +171,7 @@ class ViewController: UIViewController {
             }
             activatedButtons.removeAll()
             currentAnswer.text = ""
+            
             let ac = UIAlertController(title: "Incorrect!", message: "You are wrong, try again.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
