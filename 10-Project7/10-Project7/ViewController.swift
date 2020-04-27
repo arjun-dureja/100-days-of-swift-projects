@@ -61,7 +61,7 @@ class ViewController: UITableViewController {
         
         filteredPetitions.removeAll()
         for i in 0..<petitions.count {
-            if petitions[i].title.contains(query) || petitions[i].body.contains(query) {
+            if petitions[i].title.lowercased().contains(query.lowercased()) || petitions[i].body.lowercased().contains(query.lowercased()) {
                 filteredPetitions.append(petitions[i])
             }
         }
