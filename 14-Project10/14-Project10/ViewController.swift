@@ -46,7 +46,23 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.delegate = self
-        present(picker, animated: true)
+        
+        let ac = UIAlertController(title: "Add Person", message: nil, preferredStyle: .alert)
+        
+        ac.addAction(UIAlertAction(title: "Take Photo", style: .default) {
+            [weak self] _ in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                picker.sourceType = .camera
+            }
+            self?.present(picker, animated: true)
+        })
+        
+        ac.addAction(UIAlertAction(title: "Photo Library", style: .default) {
+            [weak self] _ in
+            self?.present(picker, animated: true)
+        })
+    
+        present(ac, animated: true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -74,17 +90,30 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let person = people[indexPath.item]
         
-        let ac = UIAlertController(title: "Rename person", message: nil, preferredStyle: .alert)
-        ac.addTextField()
+        let ac = UIAlertController(title: "Customize", message: nil, preferredStyle: .alert)
         
-        ac.addAction(UIAlertAction(title: "OK", style: .default) {
-            [weak self, weak ac] _ in
-            guard let newName = ac?.textFields?[0].text else { return }
-            person.name = newName
-            self?.collectionView.reloadData()
+        ac.addAction(UIAlertAction(title: "Rename", style: .default) {
+            [weak self] _ in
+            let renameAC = UIAlertController(title: "Rename person", message: nil, preferredStyle: .alert)
+            renameAC.addTextField()
+            
+            renameAC.addAction(UIAlertAction(title: "OK", style: .default) {
+                [weak self] _ in
+                guard let newName = renameAC.textFields?[0].text else { return }
+                person.name = newName
+                self?.collectionView.reloadData()
+            })
+            
+            renameAC.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            self?.present(renameAC, animated: true)
         })
         
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: "Delete", style: .cancel) {
+            [weak self] _ in
+            self?.people.remove(at: indexPath.item)
+            collectionView.deleteItems(at: [indexPath])
+        })
         present(ac, animated: true)
     }
 
