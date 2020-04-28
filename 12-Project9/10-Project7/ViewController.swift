@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
     var petitions = [Petition]()
     var filteredPetitions = [Petition]()
+    var query: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,17 +50,17 @@ class ViewController: UITableViewController {
         
         ac.addAction(UIAlertAction(title: "Submit", style: .default) {
             [weak self, weak ac] _ in
-            guard let query = ac?.textFields?[0].text else { return }
-            self?.submit(query)
+            self?.query = (ac?.textFields?[0].text)!
+            self?.performSelector(inBackground: #selector(self?.submit), with: nil)
         })
         
         present(ac, animated: true)
     }
     
-    func submit(_ query: String) {
+    @objc func submit() {
         if query.isEmpty {
             filteredPetitions = petitions
-            tableView.reloadData()
+            tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
             return
         }
         
@@ -70,7 +71,7 @@ class ViewController: UITableViewController {
             }
         }
         
-        tableView.reloadData()
+        tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
     }
     
     @objc func showCredits() {
