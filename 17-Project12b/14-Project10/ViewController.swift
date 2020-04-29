@@ -125,6 +125,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         ac.addAction(UIAlertAction(title: "Delete", style: .cancel) {
             [weak self] _ in
             self?.people.remove(at: indexPath.item)
+            self?.save()
             collectionView.deleteItems(at: [indexPath])
         })
         present(ac, animated: true)

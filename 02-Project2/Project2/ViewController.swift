@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     
     var countries = [String]()
     var score = 0
+    var highScore = 0
     var correctAnswer = 0
     var questionsAsked = 0
     
@@ -33,6 +34,9 @@ class ViewController: UIViewController {
         button2.layer.borderColor = UIColor.lightGray.cgColor
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
+        let defaults = UserDefaults.standard
+        highScore = defaults.integer(forKey: "highscore")
+        
         askQuestion()
         
     }
@@ -40,8 +44,16 @@ class ViewController: UIViewController {
     func askQuestion(action: UIAlertAction! = nil) {
         
         if questionsAsked == 10 {
-            let finalAC = UIAlertController(title: "Game Over", message: "Your final score is \(score)", preferredStyle: .alert)
-            finalAC.addAction(UIAlertAction(title: "New Game", style: .default, handler: nil))
+            let finalAC: UIAlertController!
+            if score > highScore {
+                finalAC = UIAlertController(title: "Game Over", message: "Your final score is \(score), you beat your highscore!", preferredStyle: .alert)
+                finalAC.addAction(UIAlertAction(title: "New Game", style: .default, handler: nil))
+                highScore = score
+                save()
+            } else {
+                finalAC = UIAlertController(title: "Game Over", message: "Your final score is \(score)", preferredStyle: .alert)
+                finalAC.addAction(UIAlertAction(title: "New Game", style: .default, handler: nil))
+            }
             present(finalAC, animated: true)
             score = 0
             questionsAsked = 0
@@ -90,6 +102,11 @@ class ViewController: UIViewController {
         ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
         
         present(ac, animated: true)
+    }
+    
+    func save() {
+        let defaults = UserDefaults.standard
+        defaults.set(highScore, forKey: "highscore")
     }
     
 }

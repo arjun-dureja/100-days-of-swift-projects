@@ -24,16 +24,27 @@ class ViewController: UITableViewController {
             }
         }
         
-        if allWords.isEmpty {
-            allWords = ["silkworm"]
+        let defaults = UserDefaults.standard
+        
+        if let savedData = defaults.object(forKey: "usedwords") as? Data {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                usedWords = try jsonDecoder.decode([String].self, from: savedData)
+            } catch {
+                print("failed to load")
+            }
         }
         
-        startGame()
+        title = defaults.object(forKey: "currentword") as? String
+        
+        tableView.reloadData()
     }
     
     @objc func startGame() {
         title = allWords.randomElement()
         usedWords.removeAll(keepingCapacity: true)
+        save()
         tableView.reloadData()
     }
     
@@ -70,6 +81,7 @@ class ViewController: UITableViewController {
                     usedWords.insert(lowerAnswer, at: 0)
                     
                     let indexPath = IndexPath(row: 0, section: 0)
+                    save()
                     tableView.insertRows(at: [indexPath], with: .automatic)
                     
                     return
@@ -115,6 +127,15 @@ class ViewController: UITableViewController {
         let range = NSRange(location: 0, length: word.utf16.count)
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
         return misspelledRange.location == NSNotFound
+    }
+    
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        let defaults = UserDefaults.standard
+        if let savedData = try? jsonEncoder.encode(usedWords) {
+            defaults.set(savedData, forKey: "usedwords")
+        }
+        defaults.set(title, forKey: "currentword")
     }
 }
 
