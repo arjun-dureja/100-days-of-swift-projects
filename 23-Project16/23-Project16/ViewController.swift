@@ -89,7 +89,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         vc.capital = placeName
         navigationController?.pushViewController(vc, animated: true)
         
-        
+
     }
 
 
