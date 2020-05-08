@@ -17,6 +17,7 @@
 		7241278A2460F8A2003D2BD8 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724127892460F8A2003D2BD8 /* ActionViewController.swift */; };
 		7241278D2460F8A2003D2BD8 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7241278B2460F8A2003D2BD8 /* MainInterface.storyboard */; };
 		724127912460F8A2003D2BD8 /* Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 724127852460F8A2003D2BD8 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		72E2FE6E2463A51E00484350 /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = 72E2FE6D2463A51E00484350 /* Action.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		724127892460F8A2003D2BD8 /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
 		7241278C2460F8A2003D2BD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		7241278E2460F8A2003D2BD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72E2FE6D2463A51E00484350 /* Action.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				724127892460F8A2003D2BD8 /* ActionViewController.swift */,
 				7241278B2460F8A2003D2BD8 /* MainInterface.storyboard */,
 				7241278E2460F8A2003D2BD8 /* Info.plist */,
+				72E2FE6D2463A51E00484350 /* Action.js */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72E2FE6E2463A51E00484350 /* Action.js in Resources */,
 				724127882460F8A2003D2BD8 /* Media.xcassets in Resources */,
 				7241278D2460F8A2003D2BD8 /* MainInterface.storyboard in Resources */,
 			);
